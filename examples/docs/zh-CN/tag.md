@@ -2,16 +2,116 @@
 
 用于标记和选择。
 
-### 基础用法
+### 无操作标签
 
-:::demo 由`type`属性来选择tag的类型，也可以通过`color`属性来自定义背景色。
+#### 样式
 
+样式有主要、主次、次要3种，根据场景使用
+
+使用`type`属性来选择 tag 的样式，可选值: light (默认)、dark、 plain。`dark`类型只在配置了`theme`之后生效。
+
+:::demo
 ```html
-<y-tag>标签一</y-tag>
-<y-tag type="success">标签二</y-tag>
-<y-tag type="info">标签三</y-tag>
-<y-tag type="warning">标签四</y-tag>
-<y-tag type="danger">标签五</y-tag>
+<div class="tag-group">
+  <y-tag>主次标签</y-tag>
+  <y-tag type="plain">次要标签</y-tag>
+  <y-tag type="dark" theme="blue">主要标签</y-tag>
+  <y-tag theme="blue">主次标签</y-tag>
+  <y-tag type="plain" theme="blue">次要标签</y-tag>
+</div>
+```
+:::
+
+#### 尺寸
+
+标签尺寸：分为默认尺寸、小尺寸、迷你尺寸，标签的边距固定，标签宽度随文字宽度增大而增大。
+
+使用`size`属性设置 tag 尺寸大小：默认尺寸、small 和 mini。
+
+:::demo 
+```html
+<div class="tag-group">
+  <y-tag >主次标签</y-tag>
+  <y-tag size="small">主次标签</y-tag>
+  <y-tag size="mini">主次标签</y-tag>
+
+  <y-tag type="plain">次要标签</y-tag>
+  <y-tag type="plain" size="small">次要标签</y-tag>
+  <y-tag type="plain" size="mini">次要标签</y-tag>
+</div>
+<div class="tag-group">
+  <y-tag theme="blue" type="dark">主要标签</y-tag>
+  <y-tag theme="blue" type="dark" size="small">主要标签</y-tag>
+  <y-tag theme="blue" type="dark" size="mini">主要标签</y-tag>
+
+  <y-tag theme="blue">主次标签</y-tag>
+  <y-tag theme="blue" size="small">主次标签</y-tag>
+  <y-tag theme="blue" size="mini">主次标签</y-tag>
+
+  <y-tag theme="blue" type="plain">次要标签</y-tag>
+  <y-tag theme="blue" type="plain" size="small">次要标签</y-tag>
+  <y-tag theme="blue" type="plain" size="mini">次要标签</y-tag>
+</div>
+```
+:::
+### 图标
+
+使用`icon`属性选择图标
+
+:::demo 
+```html
+<div class="tag-group">
+  <y-tag icon="expression" >主次标签</y-tag>
+  <y-tag icon="expression" size="small">主次标签</y-tag>
+  <y-tag icon="expression" size="mini">主次标签</y-tag>
+
+  <y-tag icon="expression" type="plain" >次要标签</y-tag>
+  <y-tag icon="expression" type="plain" size="small">次要标签</y-tag>
+  <y-tag icon="expression" type="plain" size="mini">次要标签</y-tag>
+</div>
+<div class="tag-group">
+  <y-tag theme="blue" type="dark" icon="expression" >主要标签</y-tag>
+  <y-tag theme="blue" type="dark" icon="expression" size="small">主要标签</y-tag>
+  <y-tag theme="blue" type="dark" icon="expression" size="mini">主要标签</y-tag>
+  
+  <y-tag theme="blue" icon="expression" >主次标签</y-tag>
+  <y-tag theme="blue" icon="expression" size="small">主次标签</y-tag>
+  <y-tag theme="blue" icon="expression" size="mini">主次标签</y-tag>
+
+  <y-tag theme="blue" icon="expression" type="plain" >次要标签</y-tag>
+  <y-tag theme="blue" icon="expression" type="plain" size="small">次要标签</y-tag>
+  <y-tag theme="blue" icon="expression" type="plain" size="mini">次要标签</y-tag>
+</div>
+```
+:::
+### 图片
+
+使用`avatar`属性来自定义图片。
+
+:::demo
+```html
+<div class="tag-group">
+  <y-tag avatar="../../../yui_logo.svg" >主次标签</y-tag>
+  <y-tag avatar="../../../yui_logo.svg" size="small">主次标签</y-tag>
+  <y-tag avatar="../../../yui_logo.svg" size="mini">主次标签</y-tag>
+
+  <y-tag avatar="../../../yui_logo.svg" type="plain">次要标签</y-tag>
+  <y-tag avatar="../../../yui_logo.svg" type="plain" size="small">次要标签</y-tag>
+  <y-tag avatar="../../../yui_logo.svg" type="plain" size="mini">次要标签</y-tag>
+</div>
+<div class="tag-group">
+  <y-tag theme="blue" type="dark" avatar="../../../yui_logo.svg" >主要标签</y-tag>
+  <y-tag theme="blue" type="dark" avatar="../../../yui_logo.svg" size="small">主要标签</y-tag>
+  <y-tag theme="blue" type="dark" avatar="../../../yui_logo.svg" size="mini">主要标签</y-tag>
+
+  <y-tag theme="blue" avatar="../../../yui_logo.svg" >主次标签</y-tag>
+  <y-tag theme="blue" avatar="../../../yui_logo.svg" size="small">主次标签</y-tag>
+  <y-tag theme="blue" avatar="../../../yui_logo.svg" size="mini">主次标签</y-tag>
+
+  <y-tag theme="blue" avatar="../../../yui_logo.svg" type="plain">次要标签</y-tag>
+  <y-tag theme="blue" avatar="../../../yui_logo.svg" type="plain" size="small">次要标签</y-tag>
+  <y-tag theme="blue" avatar="../../../yui_logo.svg" type="plain" size="mini">次要标签</y-tag>
+</div>
 ```
 :::
 
@@ -20,29 +120,22 @@
 :::demo 设置`closable`属性可以定义一个标签是否可移除。默认的标签移除时会附带渐变动画，如果不想使用，可以设置`disable-transitions`属性，它接受一个`Boolean`，true 为关闭。
 
 ```html
-<y-tag
-  v-for="tag in tags"
-  :key="tag.name"
-  closable
-  :type="tag.type">
-  {{tag.name}}
-</y-tag>
-
-<script>
-  export default {
-    data() {
-      return {
-        tags: [
-          { name: '标签一', type: '' },
-          { name: '标签二', type: 'success' },
-          { name: '标签三', type: 'info' },
-          { name: '标签四', type: 'warning' },
-          { name: '标签五', type: 'danger' }
-        ]
-      };
-    }
-  }
-</script>
+<div class="tag-group">
+  <y-tag closable>默认标签</y-tag>
+  <y-tag closable size="small">小型标签</y-tag>
+  <y-tag closable size="mini">迷你标签</y-tag>
+  <y-tag icon="expression" closable>默认标签</y-tag>
+  <y-tag icon="expression" closable size="small">小型标签</y-tag>
+  <y-tag icon="expression" closable size="mini">标签一</y-tag>
+</div>
+<div class="tag-group">
+  <y-tag theme="blue" closable>默认标签</y-tag>
+  <y-tag theme="blue" closable size="small">小型标签</y-tag>
+  <y-tag theme="blue" closable size="mini">迷你标签</y-tag>
+  <y-tag theme="blue" icon="expression" closable>默认标签</y-tag>
+  <y-tag theme="blue" icon="expression" closable size="small">小型标签</y-tag>
+  <y-tag theme="blue" icon="expression" closable size="mini">迷你标签</y-tag>
+</div>
 ```
 :::
 
@@ -56,8 +149,10 @@
   :key="tag"
   v-for="tag in dynamicTags"
   closable
+  theme="blue"
   :disable-transitions="false"
   @close="handleClose(tag)">
+  <img class="y-tag__avatar" src="../../../yui_logo.svg"></img>
   {{tag}}
 </y-tag>
 <y-input
@@ -78,8 +173,8 @@
   }
   .button-new-tag {
     margin-left: 10px;
-    height: 32px;
-    line-height: 30px;
+    height: 34px;
+    line-height: 32px;
     padding-top: 0;
     padding-bottom: 0;
   }
@@ -125,17 +220,29 @@
 ```
 :::
 
-### 不同尺寸
+### 可选中标签
 
-Tag 组件提供除了默认值以外的三种尺寸，可以在不同场景下选择合适的按钮尺寸。
+设置`selectable`属性可以定义一个标签是否可选中。（点击标签可查看选中效果）
 
-:::demo 额外的尺寸：`medium`、`small`、`mini`，通过设置`size`属性来配置它们。
-
+:::demo
 ```html
-<y-tag closable>默认标签</y-tag>
-<y-tag size="medium" closable>中等标签</y-tag>
-<y-tag size="small" closable>小型标签</y-tag>
-<y-tag size="mini" closable>超小标签</y-tag>
+<div class="tag-group">
+  <y-tag @select="handleSelect" selectable>次要标签</y-tag>
+  <y-tag @select="handleSelect" icon="expression" selectable>次要标签</y-tag>
+  <y-tag @select="handleSelect" type="plain" selectable>次要标签</y-tag>
+  <y-tag @select="handleSelect" icon="expression" type="plain" selectable>次要标签</y-tag>
+  <y-tag @select="handleSelect" theme="blue" selectable>主要标签</y-tag>
+  <y-tag theme="blue" icon="expression" selectable @select="handleSelect">主要标签</y-tag>
+</div>
+<script>
+  export default {
+    methods: {
+      handleSelect(status) {
+        console.log(status ? '选中' : '取消选中')
+      }
+    }
+  }
+</script>
 ```
 :::
 
@@ -150,7 +257,6 @@ Tag 组件提供了三个不同的主题：`dark`、`light` 和 `plain`
   <y-tag
     v-for="item in items"
     :key="item.label"
-    :type="item.type"
     effect="dark">
     {{ item.label }}
   </y-tag>
@@ -160,7 +266,6 @@ Tag 组件提供了三个不同的主题：`dark`、`light` 和 `plain`
   <y-tag
     v-for="item in items"
     :key="item.label"
-    :type="item.type"
     effect="plain">
     {{ item.label }}
   </y-tag>

@@ -2,20 +2,37 @@
   export default {
     name: 'YTag',
     props: {
+      // 图片
+      avatar: String,
+      // 图标
+      icon: String,
+      // 内容
       text: String,
+      // 是否可移除, false (默认) / true
       closable: Boolean,
-      type: String,
-      hit: Boolean,
-      disableTransitions: Boolean,
-      color: String,
-      size: String,
-      effect: {
+      // 是否可选中, false (默认) / true
+      selectable: Boolean,
+      // 样式: 主要 primary  / 主次 secondary  / 次要 info
+      type: {
         type: String,
         default: 'light',
         validator(val) {
           return ['dark', 'light', 'plain'].indexOf(val) !== -1;
         }
-      }
+      },
+      // 主题色
+      theme: String,
+      hit: Boolean,
+      disableTransitions: Boolean,
+      // 背景颜色
+      color: String,
+      // 尺寸: 默认尺寸 / small / mini
+      size: String
+    },
+    data() {
+      return {
+        selected: false
+      };
     },
     methods: {
       handleClose(event) {
@@ -24,6 +41,10 @@
       },
       handleClick(event) {
         this.$emit('click', event);
+        if (this.selectable) {
+          this.selected = !this.selected;
+          this.$emit('select', this.selected);
+        };
       }
     },
     computed: {
@@ -32,22 +53,31 @@
       }
     },
     render(h) {
-      const { type, tagSize, hit, effect } = this;
+      const { icon, type, theme, closable, selectable, selected, tagSize, hit } = this;
       const classes = [
         'y-tag',
-        type ? `y-tag--${type}` : '',
+        !closable && type ? `y-tag--${type}` : '',
+        theme ? `y-tag--${theme}` : '',
         tagSize ? `y-tag--${tagSize}` : '',
-        effect ? `y-tag--${effect}` : '',
-        hit && 'is-hit'
+        hit && 'is-hit',
+        closable && 'y-tag--plain y-tag--closable',
+        selectable && 'y-tag--selectable',
+        selected && 'selected'
+      ];
+      const iconClasses = [
+        'y-tag__icon',
+        `y-icon-${icon}`
       ];
       const tagEl = (
         <span
           class={ classes }
           style={{ backgroundColor: this.color }}
           on-click={ this.handleClick }>
+          { this.avatar && <img class="y-tag__avatar" src={ this.avatar }></img>}
+          { icon && <i class={ iconClasses } name={ icon }></i> }
           { this.$slots.default }
           {
-            this.closable && <i class="y-tag__close y-icon-close" on-click={ this.handleClose }></i>
+            closable && <i class="y-tag__close y-icon-close" on-click={ this.handleClose }></i>
           }
         </span>
       );

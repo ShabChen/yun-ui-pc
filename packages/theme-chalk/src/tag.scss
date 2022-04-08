@@ -1,163 +1,213 @@
 @import "mixins/mixins";
 @import "common/var";
+// $subjectColor
 
-@mixin genTheme($backgroundColorWeight, $borderColorWeight, $fontColorWeight, $hoverColorWeight) {
-  background-color: mix($--tag-primary-color, $--color-white, $backgroundColorWeight);
-  border-color: mix($--tag-primary-color, $--color-white, $borderColorWeight);
-  color: mix($--tag-primary-color, $--color-white, $fontColorWeight);
-
-  @include when(hit) {
-    border-color: $--tag-primary-color;
-  }
+@mixin baseTheme {
+  color: $--nc1;
+  background-color: $--nc10;
 
   .y-tag__close {
-    color: mix($--tag-primary-color, $--color-white, $fontColorWeight);
+    color: $--nc5;
     &:hover {
       color: $--color-white;
-      background-color: mix($--tag-primary-color, $--color-white, $hoverColorWeight);
+      background-color: $--nc6;
+    }
+    &:active {
+      color: $--color-white;
+      background-color: $--nc5;
     }
   }
 
-  &.y-tag--info {
-    background-color: mix($--tag-info-color, $--color-white, $backgroundColorWeight);
-    border-color: mix($--tag-info-color, $--color-white, $borderColorWeight);
-    color: mix($--tag-info-color, $--color-white, $fontColorWeight);
+  &.selected {
+    color: $--tag-primary-color;
+    background-color: rgba($--tag-primary-color, 10%);
+  }
 
-    @include when(hit) {
-      border-color: $--tag-info-color;
-    }
+  // @include when(hit) {
+  &.y-tag--plain {
+    color: $--nc5;
+    background-color: unset;
+    border-color: $--nc8;
 
-    .y-tag__close {
-      color: mix($--tag-info-color, $--color-white, $fontColorWeight);
-      &:hover {
-        color: $--color-white;
-        background-color: mix($--tag-info-color, $--color-white, $hoverColorWeight);
-      }
+    &.selected {
+      color: $--tag-primary-color;
+      border-color: $--tag-primary-color;
     }
   }
 
-  &.y-tag--success {
-    background-color: mix($--tag-success-color, $--color-white, $backgroundColorWeight);
-    border-color: mix($--tag-success-color, $--color-white, $borderColorWeight);
-    color: mix($--tag-success-color, $--color-white, $fontColorWeight);
+  
+}
 
-    @include when(hit) {
-      border-color: $--tag-success-color;
-    }
+@mixin genTheme($subjectColor, $backgroundColorWeight, $activeColor) {
+  color: $subjectColor;
+  background-color: rgba($subjectColor, $backgroundColorWeight);  
 
-    .y-tag__close {
-      color: mix($--tag-success-color, $--color-white, $fontColorWeight);
-      &:hover {
-        color: $--color-white;
-        background-color: mix($--tag-success-color, $--color-white, $hoverColorWeight);
-      }
-    }
+  &.y-tag--dark,
+  &.selected {
+    color: $--color-white;
+    background-color: $subjectColor;
   }
 
-  &.y-tag--warning {
-    background-color: mix($--tag-warning-color, $--color-white, $backgroundColorWeight);
-    border-color: mix($--tag-warning-color, $--color-white, $borderColorWeight);
-    color: mix($--tag-warning-color, $--color-white, $fontColorWeight);
-
-    @include when(hit) {
-      border-color: $--tag-warning-color;
-    }
-
-    .y-tag__close {
-      color: mix($--tag-warning-color, $--color-white, $fontColorWeight);
-      &:hover {
-        color: $--color-white;
-        background-color: mix($--tag-warning-color, $--color-white, $hoverColorWeight);
-      }
-    }
+  // @include when(hit) {
+  &.y-tag--plain {
+    background-color: unset;
+    border-color: $subjectColor;
   }
 
-  &.y-tag--danger {
-    background-color: mix($--tag-danger-color, $--color-white, $backgroundColorWeight);
-    border-color: mix($--tag-danger-color, $--color-white, $borderColorWeight);
-    color: mix($--tag-danger-color, $--color-white, $fontColorWeight);
+  
 
-    @include when(hit) {
-      border-color: $--tag-danger-color;
+  // .y-tag__close {
+  //   color: mix($--tag-primary-color, $--color-white, $fontColorWeight);
+  //   &:hover {
+  //     color: $--color-white;
+  //     background-color: mix($--tag-primary-color, $--color-white, $hoverColorWeight);
+  //   }
+  // }
+  .y-tag__close {
+    color: $subjectColor;
+    &:hover {
+      color: $--color-white;
+      background-color: $subjectColor;
+    }
+    &:active {
+      color: $--color-white;
+      background-color: $activeColor;
     }
 
-    .y-tag__close {
-      color: mix($--tag-danger-color, $--color-white, $fontColorWeight);
-      &:hover {
-        color: $--color-white;
-        background-color: mix($--tag-danger-color, $--color-white, $hoverColorWeight);
-      }
-    }
   }
 }
 
 @include b(tag) {
-  @include genTheme(10%, 20%, 100%, 100%);
+  @include baseTheme;
   display: inline-block;
-  height: 32px;
+  height: 24px;
+  line-height: 24px;
   padding: $--tag-padding;
-  line-height: 30px;
+  // padding: 0px 8px;
   font-size: $--tag-font-size;
-  color: $--tag-primary-color;
-  border-width: 1px;
-  border-style: solid;
+  // color: $--tag-primary-color;
   border-radius: $--tag-border-radius;
   box-sizing: border-box;
+
   white-space: nowrap;
 
-  .y-icon-close {
-    border-radius: 50%;
-    text-align: center;
+  .y-tag__avatar,
+  .y-tag__icon {
     position: relative;
-    cursor: pointer;
-    font-size: 12px;
-    height: 16px;
-    width: 16px;
-    line-height: 16px;
     vertical-align: middle;
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
     top: -1px;
-    right: -5px;
+    margin-right: 4px;
+    user-select: none;
+  }
 
-    &::before {
-      display: block;
+  &.y-tag--closable {
+    height: 34px;
+    line-height: 32px;
+    padding: 0 12px;
+    font-size: 13px;
+    border-radius: 4px;
+    color: $--nc1;
+
+    .y-icon-close {
+      border-radius: 50%;
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+      font-size: 12px;
+      height: 16px;
+      width: 16px;
+      line-height: 16px;
+      vertical-align: middle;
+      top: -1px;
+      right: -5px;
+  
+      &::before {
+        display: block;
+      }
+    }
+    .y-tag__avatar,
+    .y-tag__icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
     }
   }
 
-  @include m(dark) {
-    @include genTheme(100%, 100%, 0, 80%);
+  &.y-tag--selectable {
+    cursor: pointer;
+    user-select: none;
   }
 
   @include m(plain) {
-    @include genTheme(0, 40%, 100%, 100%);
-  }
-
-  @include m(medium) {
-    height: 28px;
-    line-height: 26px;
-
-    .y-icon-close {
-      transform: scale(.8);
-    }
+    border-width: 1px;
+    border-style: solid;
+    line-height: 22px;
+    // @include genTheme(0, 40%, 100%, 100%);
   }
 
   @include m(small) {
-    height: 24px;
-    padding: 0 8px;
-    line-height: 22px;
+    height: 20px;
+    padding: 0 4px;
+    line-height: 20px;
+
+    &.y-tag--plain {
+      line-height: 19px;
+    }
+
+    &.y-tag--closable {
+      height: 28px;
+      line-height: 26px;
+    }
 
     .y-icon-close {
-      transform: scale(.8);
+      // transform: scale(.8);
     }
   }
 
   @include m(mini) {
-    height: 20px;
-    padding: 0 5px;
-    line-height: 19px;
+    height: 16px;
+    line-height: 16px;
+    padding: 0 2px;
 
-    .y-icon-close {
-      margin-left: -3px;
-      transform: scale(.7);
+    .y-tag__avatar,
+    .y-tag__icon {
+      top: -1px;
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+      margin-right: 2px;
     }
+
+    // .y-icon-close {
+    //   margin-left: -3px;
+    //   transform: scale(.7);
+    // }
+
+    &.y-tag--plain {
+      // line-height: 14px;
+      // .y-tag__avatar,
+      // .y-tag__icon {
+      //   top: -1px;
+      // }
+    }
+
+    &.y-tag--closable {
+      height: 24px;
+      line-height: 22px;
+      font-size: 12px;
+
+      .y-tag__avatar,
+      .y-tag__icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+  &.y-tag--blue {
+    @include genTheme($--tag-primary-color, 10%, #418cdb)
   }
 }
